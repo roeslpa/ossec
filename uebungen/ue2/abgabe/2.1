@@ -1,0 +1,8 @@
+Paul Rösler 108012225686
+
+Eduard Hauck 108012207435
+
+Philipp Markert 108012225264
+
+
+LD_PRELOAD ist eine Umgebungsvariable, in der Libraries, die unabhängig vom Bauen eines Programms erst direkt vor der Laufzeit eingebunden werden, gelistet sind. Da diese Liste auf der Maschine, auf der das Programm ausgeführt wird, angepasst werden kann, hat der Entwickler keinen Einfluss auf die Korrektheit der eingebundenen Library. Aus diesem Grund kann ein Angreifer Libraries in der LD_PRELOAD überschreiben und seine eigene Funktionalität einfügen. Somit lässt sich innerhalb von vertrauenswürdigem ausgeführtem Programm unvertrauenswürdiger Code aus der gelinkten Library ausführen, obwohl der Entwickler des Programms dies nicht beabsichtigt hat.

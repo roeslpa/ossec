@@ -1,0 +1,16 @@
+# Aufgabe 1.3
+#
+# Gruppe:
+# Dennis Röllke 108 012 233 235
+# Jan Kaiser 108 012 211 505
+# Phillip Müller 108 012 236 929
+#
+Wieso wird die Länge des 2. Arguments mit diesem Befehl geprüft?
+if(!(strlen(argv[2]) <= 100 + strlen(argv[1]))) 
+Das erlaubt einen String <= 104
+Der wird an dieser Stelle in buff[100] kopiert
+strcpy(buff, argv[2]);
+Dabei geschiet der Overflow.
+
+Würde die Länge des 2. Arguments mit 100 geprüft werden tritt das Problem nicht auf:
+if(!(strlen(argv[2]) <= 100)) 

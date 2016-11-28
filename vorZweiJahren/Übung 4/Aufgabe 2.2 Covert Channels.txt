@@ -1,0 +1,14 @@
+# Aufgabe 2.2
+#
+# Gruppe:
+# Dennis Röllke 108 012 233 235
+# Jan Kaiser 108 012 211 505
+# Phillip Müller 108 012 236 929
+#
+Covert Channels sind Kommunikationskanäle die nicht als solche gedacht sind.
+Das können entweder Kanäle sein, die für andere, legitime Kommunikation gedacht sind (Netzwerk, oder Shared Storage),
+und für ungewollte Kommunikation ausgenutzt werden;
+oder Ressourcen, die nicht direkt für die Kommunikation gedacht sind, aber für diese genutzt werden (Side Channels).
+In der Praxis werden VMs und Sandboxes verwendet. Dennoch lassen sich beide Varianten oft nicht verhindern, dann muss das Ziel sein die Bandbreite
+mit der ungewollt Informationen ausgetauscht werden können zu beschränken.
+

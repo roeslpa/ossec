@@ -1,0 +1,11 @@
+1. Eine Race Conditions tritt auf, wenn mehrere threads gleichzeitig eine Resource benutzen wollen. Sobald der Zugriff auf diese Ressource nicht atomar ist, kann der scheduling Algorithmus zwischen den beiden Zugriffen hin und her wechseln, sodass die Reihenfolge mit der die Threads auf die Ressource zugreifen unbestimmt ist.
+Bezüglich Dateizugriff ist das Problem der Race Condition, dass die Prüfung, ob der Zugriff erlaubt ist, unabhängig vom eigentlichen Zugriff stattfindet, sodass ein Angreifer nach der Prüfung eine andere Datei, auf die zugegriffen werden soll, einschleusen soll. Bemerkt das zugreifende Programm diese Änderung nicht, hat der Angreifer das Race zwischen Prüfung und Zugriff gegen das Programm gewonnen.
+
+2.
+2.1touch testfile
+2.2ln -sf ./testfile a & ./toctou a 'blaa::0:0:blaa::/bin/bash' & ln -sf /etc/passwd a &
+
+mehrmaliges ausführen von 2.2 fügt  in der Datei /etc/passwd den String 'blaa::0:0:blaa::/bin/bash' hinzu
+
+
+

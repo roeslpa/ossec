@@ -1,0 +1,45 @@
+// Eduard Hauck 108012207435
+// Paul Rösler 108012225686
+// Philipp Markert 108012225264
+// Beschreibung: siehe Kommentare
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+int main (int argc, char* argv[])
+{
+    struct stat st;
+    int fd;
+    FILE * fp;
+
+    if (argc != 3) {
+       fprintf (stderr, "usage : %s file message\n", argv [0]);
+       exit(EXIT_FAILURE);
+    }
+    if ((fd = open (argv [1], O_WRONLY, 0)) < 0) {               // benutzte einen filehandler der immer auf das gleiche zeigt, also wird mit fd immer die genaue date referenziert
+        fprintf (stderr, "Can't open %s\n", argv [1]);
+        exit(EXIT_FAILURE);
+    }
+    fstat (fd, & st);//fstat anstatt stat, weil das über den file descriptor geht, anstatt über einen path, der bei einer race condition über einen symlink ersetzt werden könnte
+    if (st . st_uid != getuid ()) {
+      fprintf (stderr, "%s not owner !\n", argv [1]);
+      exit(EXIT_FAILURE);
+    }
+    if (! S_ISREG (st . st_mode)) {
+        fprintf (stderr, "%s not a normal file\n", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+
+    //und natürlich kein sleep mehr bevor die Datei geöffnet wird
+    if ((fp = fdopen (fd, "w")) == NULL) {
+        fprintf (stderr, "Can't open\n");
+        exit(EXIT_FAILURE);
+    }
+    fprintf (fp, "%s", argv [2]);
+    fclose (fp);
+    fprintf (stderr, "Write Ok\n");
+    exit(EXIT_SUCCESS);
+}

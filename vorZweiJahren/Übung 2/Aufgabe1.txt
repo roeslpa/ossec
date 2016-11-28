@@ -1,0 +1,18 @@
+Aufgabe 2.1
+
+Gruppe:
+Dennis Röllke 108 012 233 235
+Jan Kaiser 108 012 211 505
+Phillip Müller 108 012 236 929
+
+Ein möglicher Bypass wäre:
+./authenticate AAAAAAAAAAAAAAAAAA 
+(Input >16 Mal ein beliebiges Zeichen)
+
+Problematisch ist, dass eine Nutzereingabe (char *password) direkt in ein Array mit beschränkter Anzahl Elemente (password_buffer[16]) übernommen wird (strcpy()). Dabei kann durch die Nutzereingabe, der int Wert des auf dem Stack „darüber“ liegenden „auth_flag = 0“ überschrieben werden.
+Mit der if-Abfrage des auth_flag-Wertes wird es als boolean behandelt ist also „true“ wenn nicht 0.
+
+Wenn die Deklaration von auth_flag und password_buffer vertauscht wird, liegt auth:flag auf dem Stack nichtmehr „über“ password_buffer, sondern „darunter“. Dann würde auth_flag nicht direkt überschrieben!
+
+Um diesen Angriff zu verhindern kann sizeof() verwendet werde. Mit sizeof() wird die Nutzereingabe auf die Länge von password_buffer geschnitten:
+strncpy(password_buffer, password, sizeof(password_buffer));

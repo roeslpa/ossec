@@ -1,0 +1,9 @@
+# Aufgabe 1.2
+#
+# Gruppe:
+# Dennis Röllke 108 012 233 235
+# Jan Kaiser 108 012 211 505
+# Phillip Müller 108 012 236 929
+#
+Durch CFI lässt sich der Angriff verhindern.
+Der valide CFG würde verlassen und wegen UNQ würde die falsche Rücksprungadresse bemerkt werden.
